@@ -1,0 +1,285 @@
+/* Importar fuente Numans (igual que el resto de la app) */
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gestion-banners-wrapper {
+  font-family: 'Numans', sans-serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.content-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-header {
+  background-color: #07666D;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-header h2 i {
+  font-size: 1.6rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Alerta informativa */
+.alert-info {
+  background-color: #e8f4f8;
+  border-left: 5px solid #0FB7CF;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  color: #082c32;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.alert-info i {
+  font-size: 1.5rem;
+  color: #0FB7CF;
+}
+
+/* Sección subir banner */
+.upload-section {
+  background: #f9fafb;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.upload-section h4 {
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  color: #07666D;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+
+.form-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #082c32;
+  font-size: 0.85rem;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.text-muted {
+  font-size: 0.7rem;
+  color: #6c757d;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.btn-primary {
+  background-color: #0FB7CF;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 40px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #0c9db3;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mensajes */
+.alert-message {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* Tabla de banners */
+.banners-section h4 {
+  margin-bottom: 1rem;
+  color: #07666D;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.banners-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.banners-table th,
+.banners-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.banners-table th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  color: #082c32;
+}
+
+.preview-img {
+  width: 80px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.orden-input {
+  width: 70px;
+  padding: 0.3rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.status-badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+.status-badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-toggle, .btn-delete {
+  border: none;
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.btn-toggle {
+  background-color: #ffc107;
+  color: #082c32;
+}
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+.btn-toggle:hover, .btn-delete:hover {
+  filter: brightness(0.9);
+}
+
+.empty-row {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-header h2 {
+    font-size: 1.2rem;
+  }
+  .upload-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .banners-table th, 
+  .banners-table td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .btn-toggle, .btn-delete {
+    width: 100%;
+    text-align: center;
+  }
+}

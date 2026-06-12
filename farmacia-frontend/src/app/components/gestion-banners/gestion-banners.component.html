@@ -1,0 +1,84 @@
+<div class="gestion-banners-wrapper">
+    <app-top-bar [showCart]="false"></app-top-bar>
+  
+    <div class="main-container">
+      <div class="content-card">
+        <div class="card-header">
+          <h2><i class="bi bi-images"></i> Gestión de Banners del Carrusel</h2>
+        </div>
+  
+        <div class="card-body">
+          <!-- Recomendación -->
+          <div class="alert-info">
+            <i class="bi bi-info-circle-fill"></i>
+            <strong>Recomendación para imágenes:</strong> Formato JPG o PNG, tamaño 1200x400 píxeles (relación 3:1).
+            Peso máximo 500KB para una carga rápida.
+          </div>
+  
+          <!-- Formulario de subida -->
+          <div class="upload-section">
+            <h4><i class="bi bi-cloud-upload"></i> Subir nuevo banner</h4>
+            <div class="upload-form">
+              <div class="form-field">
+                <label>Imagen</label>
+                <input type="file" (change)="onFileSelected($event)" accept="image/jpeg,image/png">
+                <small class="text-muted">Seleccione un archivo JPG o PNG</small>
+              </div>
+              <div class="form-field">
+                <label>Orden (menor = más a la izquierda)</label>
+                <input type="number" [(ngModel)]="nuevoOrden" min="0">
+              </div>
+              <div class="form-field">
+                <button class="btn-primary" (click)="subirBanner()" [disabled]="cargando">
+                  {{ cargando ? 'Subiendo...' : 'Subir banner' }}
+                </button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Mensajes -->
+          <div *ngIf="mensaje" class="alert-message" [ngClass]="{'alert-success': mensajeTipo === 'success', 'alert-danger': mensajeTipo === 'error'}">
+            {{ mensaje }}
+          </div>
+  
+          <!-- Listado de banners existentes -->
+          <div class="banners-section">
+            <h4><i class="bi bi-list-ul"></i> Banners existentes</h4>
+            <div class="table-responsive">
+              <table class="banners-table">
+                <thead>
+                  <tr><th>ID</th><th>Vista previa</th><th>URL</th><th>Orden</th><th>Activo</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let banner of banners">
+                    <td data-label="ID">{{ banner.id }}</td>
+                    <td data-label="Vista previa">
+                      <img [src]="getFullImageUrl(banner.url)" class="preview-img" alt="Preview">
+                    </td>
+                    <td data-label="URL"><small>{{ banner.url }}</small></td>
+                    <td data-label="Orden">
+                      <input type="number" [(ngModel)]="banner.orden" (change)="actualizarOrden(banner, banner.orden)" class="orden-input">
+                    </td>
+                    <td data-label="Activo">
+                      <span class="status-badge" [class.active]="banner.activo" [class.inactive]="!banner.activo">
+                        {{ banner.activo ? 'Activo' : 'Inactivo' }}
+                      </span>
+                    </td>
+                    <td data-label="Acciones" class="actions">
+                      <button class="btn-toggle" (click)="toggleEstado(banner)">{{ banner.activo ? 'Ocultar' : 'Mostrar' }}</button>
+                      <button class="btn-delete" (click)="eliminarBanner(banner.id)">Eliminar</button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="banners.length === 0">
+                    <td colspan="6" class="empty-row">No hay banners aún. ¡Sube el primero!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <app-bottom-bar></app-bottom-bar>
+  </div>

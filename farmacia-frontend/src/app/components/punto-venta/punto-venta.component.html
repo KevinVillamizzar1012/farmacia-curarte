@@ -1,0 +1,89 @@
+<div class="pos-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <!-- Contenido principal -->
+  <div class="main-content-pos">
+    <div class="pos-card">
+      <div class="card-header">
+        <h3><i class="bi bi-cart-plus"></i> Punto de Venta</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <!-- Panel izquierdo: búsqueda -->
+          <div class="col-md-5">
+            <div class="search-box">
+              <h5><i class="bi bi-search"></i> Buscar producto</h5>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Código de barras o nombre" [(ngModel)]="busqueda" (keyup.enter)="buscarProducto()">
+                <button class="btn-primary" (click)="buscarProducto()">Buscar</button>
+              </div>
+              <div *ngIf="productoEncontrado" class="producto-info mt-3">
+                <div class="alert-success">
+                  <strong>{{ productoEncontrado.nombre }}</strong><br>
+                  Precio: \${{ productoEncontrado.precio }} | Stock: {{ productoEncontrado.stock }}
+                </div>
+                <div class="input-group">
+                  <input type="number" class="form-control" placeholder="Cantidad" [(ngModel)]="cantidad" min="1" [max]="productoEncontrado.stock">
+                  <button class="btn-success" (click)="agregarAlCarrito()">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel derecho: carrito -->
+          <div class="col-md-7">
+            <div class="cart-box">
+              <h5><i class="bi bi-cart"></i> Carrito de venta</h5>
+              <div class="table-responsive">
+                <table class="table-cart">
+                  <thead>
+                    <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th><th></th></tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of carrito; let i = index">
+                      <td>{{ item.producto.nombre }}</td>
+                      <td>{{ item.cantidad }}</td>
+                      <td>\${{ item.producto.precio }}</td>
+                      <td>\${{ item.subtotal }}</td>
+                      <td><button class="btn-remove" (click)="eliminarDelCarrito(i)">X</button></td>
+                    </tr>
+                    <tr *ngIf="carrito.length === 0"><td colspan="5" class="text-center">Carrito vacío</td></tr>
+                  </tbody>
+                  <tfoot>
+                    <tr><th colspan="3">Total</th><th>\${{ total }}</th><th></th></tr>
+                  </tfoot>
+                </table>
+              </div>
+              <button class="btn-confirmar" (click)="abrirModalConfirmacion()" [disabled]="carrito.length === 0">Confirmar Venta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<!-- Modal universal -->
+<div class="modal" [class.show]="modalVisible" *ngIf="modalVisible">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>{{ modalTitle }}</h5>
+        <button type="button" class="close" (click)="cerrarModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="modalIcon" class="modal-icon"><i [class]="modalIcon"></i></p>
+        <p>{{ modalMessage }}</p>
+        <p *ngIf="modalExtra" class="modal-extra">{{ modalExtra }}</p>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="modalType === 'confirm'" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+        <button class="btn-aceptar" (click)="ejecutarAccion()">{{ modalButtonText }}</button>
+      </div>
+    </div>
+  </div>
+</div>

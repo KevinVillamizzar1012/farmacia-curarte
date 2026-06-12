@@ -1,0 +1,159 @@
+<div class="home-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar 
+    [cartItemsCount]="carritoItems.length" 
+    (cartClick)="abrirCarrito()">
+  </app-top-bar>
+
+  <!-- BANNER DE BIENVENIDA -->
+  <div class="welcome-banner">
+    <h1>¡Bienvenido!</h1>
+    <p>Descubre productos pensados para tu salud y bienestar.</p>
+  </div>
+
+  <!-- BARRA DE BÚSQUEDA CON SUGERENCIAS -->
+  <div class="search-section">
+    <div class="search-container">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" class="search-input"
+             placeholder="Buscar medicamentos..."
+             [(ngModel)]="terminoBusqueda"
+             (input)="onSearchInput()"
+             (keyup.enter)="buscar()"
+             (blur)="closeSuggestions()"
+             autocomplete="off">
+      <button class="search-btn" (click)="buscar()">Buscar</button>
+    </div>
+    <div class="suggestions-dropdown" *ngIf="showSuggestions && suggestions.length > 0">
+      <div *ngFor="let prod of suggestions" class="suggestion-item">
+        <span class="suggestion-name" (click)="selectSuggestion(prod)">{{ prod.nombre }}</span>
+        <button class="suggestion-add" (click)="agregarAlCarrito(prod, 1); $event.stopPropagation()">
+          <i class="bi bi-cart-plus"></i> Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARRUSEL MANUAL DE BANNERS (dinámico) -->
+  <div class="banner-carousel-manual">
+    <div class="carousel-container-manual">
+      <div class="carousel-slide" [style.transform]="'translateX(-' + currentBannerIndex * 100 + '%)'">
+        <img *ngFor="let banner of banners" [src]="getFullBannerUrl(banner)" class="carousel-image" alt="Banner">
+      </div>
+    </div>
+    <button class="carousel-control-manual prev" (click)="prevBanner()">❮</button>
+    <button class="carousel-control-manual next" (click)="nextBanner()">❯</button>
+    <div class="carousel-indicators-manual">
+      <span *ngFor="let banner of banners; let i = index"
+            class="indicator"
+            [class.active]="i === currentBannerIndex"
+            (click)="goToBanner(i)"></span>
+    </div>
+  </div>
+
+  <!-- LOS MÁS VENDIDOS (carrusel horizontal) -->
+  <div class="section productos-section">
+    <h2>Los más vendidos</h2>
+    <div class="carousel-container">
+      <button class="carousel-btn prev" (click)="scrollProductos(-1)">❮</button>
+      <div class="carousel-track" #productosTrack>
+        <div *ngFor="let prod of productosDestacados" class="producto-card">
+          <img [src]="getImagenProducto(prod.id)" class="producto-img rounded-circle" alt="{{ prod.nombre }}">
+          <div class="producto-info">
+            <h5>{{ prod.nombre }}</h5>
+            <p class="categoria">{{ prod.categoria }}</p>
+            <p class="precio">\${{ prod.precio }}</p>
+            <button class="btn-comprar" (click)="agregarAlCarrito(prod, 1)">Comprar</button>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn next" (click)="scrollProductos(1)">❯</button>
+    </div>
+  </div>
+
+  <!-- ÚLTIMAS COMPRAS (opcional) -->
+  <div class="section ultimas-compras" *ngIf="ultimasCompras && ultimasCompras.length > 0">
+    <h2>Tus últimas compras</h2>
+    <div class="compras-grid">
+      <div *ngFor="let venta of ultimasCompras" class="compra-card">
+        <p><strong>Fecha:</strong> {{ venta.fecha | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Total:</strong> \${{ venta.total }}</p>
+        <p><strong>Productos:</strong> {{ venta.cantidadItems }} unidades</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS (grid horizontal) -->
+  <div class="section categorias-section">
+    <h2>Categorías</h2>
+    <div class="categorias-grid">
+      <div *ngFor="let cat of categorias" class="categoria-card" (click)="navegarPorCategoria(cat)">
+        <img [src]="getImagenCategoria(cat)" class="categoria-img rounded-circle" alt="{{ cat }}">
+        <span class="categoria-nombre">{{ cat }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIÉNES SOMOS -->
+  <div class="section quienes-somos">
+    <div class="quienes-somos-card">
+      <h2>¿Quiénes somos?</h2>
+      <p>Farmacias Curarte es tu farmacia y droguería virtual 24 horas que te entrega a domicilio una gran variedad de productos (bebés, medicamentos, naturales, aseo, helados, belleza) para que compres sin salir de casa.</p>
+      <p class="lema">Cuidarte es nuestro arte.</p>
+    </div>
+  </div>
+
+  <!-- SERVICIOS DESTACADOS -->
+  <div class="section servicios">
+    <div class="servicio-item">💉 Servicio de inyectología</div>
+    <div class="servicio-item">🇬🇧 We speak english / 🇧🇷 Falamos português</div>
+    <div class="servicio-item">🚚 Servicio a domicilio</div>
+    <div class="servicio-item">💳 Todos los medios de pago</div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>
+
+<!-- TOAST DE CONFIRMACIÓN (estilo propio) -->
+<div class="toast-confirm" *ngIf="showConfirmMessage" [ngClass]="{'show': showConfirmMessage}">
+  <div class="toast-content">
+    <i class="bi bi-check-circle-fill"></i>
+    <span>{{ confirmMessage }}</span>
+  </div>
+</div>
+
+<!-- MODAL DEL CARRITO (con botones + y -) -->
+<div class="cart-modal-overlay" *ngIf="showCartModal" (click)="cerrarCarrito()"></div>
+<div class="cart-modal" [class.show]="showCartModal" *ngIf="showCartModal">
+  <div class="cart-modal-dialog">
+    <div class="cart-modal-content">
+      <div class="cart-modal-header">
+        <h5>Mi carrito</h5>
+        <button class="cart-modal-close" (click)="cerrarCarrito()">&times;</button>
+      </div>
+      <div class="cart-modal-body">
+        <div *ngIf="carritoItems.length === 0" class="text-center">Carrito vacío</div>
+        <div *ngFor="let item of carritoItems" class="cart-item">
+          <div class="cart-item-info">
+            <span>{{ item.producto.nombre }}</span>
+            <span>\${{ item.producto.precio }}</span>
+          </div>
+          <div class="cart-item-actions">
+            <button class="btn-qty" (click)="decrementarCantidad(item)">-</button>
+            <input type="number" [(ngModel)]="item.cantidad" (change)="actualizarCantidad(item, item.cantidad)" min="1" class="cart-qty">
+            <button class="btn-qty" (click)="incrementarCantidad(item)">+</button>
+            <button class="btn-remove" (click)="eliminarDelCarrito(item)">Eliminar</button>
+          </div>
+        </div>
+        <div class="cart-total" *ngIf="carritoItems.length">
+          <strong>Total: \${{ cartTotal }}</strong>
+        </div>
+      </div>
+      <div class="cart-modal-footer">
+        <button class="btn-secondary" (click)="cerrarCarrito()">Seguir comprando</button>
+        <button class="btn-primary" (click)="realizarPedido()" [disabled]="carritoItems.length === 0">Realizar pedido</button>
+      </div>
+    </div>
+  </div>
+</div>

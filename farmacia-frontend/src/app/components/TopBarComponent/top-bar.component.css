@@ -1,0 +1,150 @@
+/* ========== TOP BAR ========== */
+.top-bar {
+  background-color: #07666D;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+}
+
+.logo-link {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.top-logo {
+  height: 45px;   /* Redimensionado (ajusta según prefieras) */
+  width: auto;
+  transition: transform 0.2s;
+}
+
+.top-logo:hover {
+  transform: scale(1.02);
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cart-icon-btn {
+  background: none;
+  border: none;
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-icon-img {
+  width: 32px;
+  height: 32px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.btn-user {
+  background-color: #0FB7CF;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar-mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #07666D;
+  border-radius: 8px;
+  padding: 0.5rem;
+  min-width: 150px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.dropdown-item {
+  background: none;
+  border: none;
+  color: white;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: #0FB7CF;
+  border-radius: 4px;
+}
+
+/* Botones para usuarios no logueados */
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-login, .btn-registro {
+  background-color: #0FB7CF;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-login:hover, .btn-registro:hover {
+  background-color: #0c9db3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 0.5rem 1rem;
+  }
+  .btn-user, .btn-login, .btn-registro {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  .top-logo {
+    height: 35px;
+  }
+}

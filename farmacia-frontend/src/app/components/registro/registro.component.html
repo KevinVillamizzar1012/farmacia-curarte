@@ -1,0 +1,130 @@
+<div class="registro-page-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar></app-top-bar>
+
+  <!-- Contenedor principal del formulario -->
+  <div class="registro-container">
+    <div class="registro-card">
+      <!-- Logo -->
+      <div class="logo-container">
+        <img src="logo.png" alt="Farmacias Curarte" class="logo-img">
+      </div>
+  
+      <!-- Título -->
+      <h2 class="titulo-principal">Crear cuenta</h2>
+      <p class="subtitulo">Regístrate como nuevo cliente</p>
+  
+      <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <!-- Nombre -->
+        <div class="campo-nombre">
+          <label class="label-nombre">Nombre *</label>
+          <div class="input-wrapper">
+            <span class="icono-nombre"><i class="bi bi-person"></i></span>
+            <input type="text" class="input-nombre" formControlName="nombre" placeholder="Tu nombre">
+          </div>
+          <div class="error-message" *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+            Nombre requerido
+          </div>
+        </div>
+  
+        <!-- Apellido -->
+        <div class="campo-apellido">
+          <label class="label-apellido">Apellido *</label>
+          <div class="input-wrapper">
+            <span class="icono-apellido"><i class="bi bi-person"></i></span>
+            <input type="text" class="input-apellido" formControlName="apellido" placeholder="Tu apellido">
+          </div>
+          <div class="error-message" *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
+            Apellido requerido
+          </div>
+        </div>
+  
+        <!-- Usuario -->
+        <div class="campo-usuario">
+          <label class="label-usuario">Usuario *</label>
+          <div class="input-wrapper">
+            <span class="icono-usuario"><i class="bi bi-person-badge"></i></span>
+            <input type="text" class="input-usuario" formControlName="username" placeholder="Nombre de usuario">
+          </div>
+          <div class="error-message" *ngIf="registroForm.get('username')?.invalid && registroForm.get('username')?.touched">
+            Usuario requerido
+          </div>
+        </div>
+  
+        <!-- Email -->
+        <div class="campo-email">
+          <label class="label-email">Correo electrónico</label>
+          <div class="input-wrapper">
+            <span class="icono-email"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="input-email" formControlName="email" placeholder="tucorreo@ejemplo.com">
+          </div>
+          <div class="error-message" *ngIf="registroForm.get('email')?.invalid && registroForm.get('email')?.touched">
+            Email inválido
+          </div>
+        </div>
+  
+        <!-- Teléfono con código de área -->
+        <div class="campo-telefono">
+          <label class="label-telefono">Teléfono</label>
+          <div class="telefono-wrapper">
+            <select class="codigo-area" formControlName="codigoArea">
+              <option value="">+ Código</option>
+              <option value="+57">+57 (Colombia)</option>
+              <option value="+1">+1 (USA/Canadá)</option>
+              <option value="+34">+34 (España)</option>
+              <option value="+52">+52 (México)</option>
+              <option value="+54">+54 (Argentina)</option>
+            </select>
+            <input type="tel" class="telefono-numero" formControlName="telefono" placeholder="Número de teléfono">
+          </div>
+        </div>
+  
+        <!-- Fecha de nacimiento -->
+        <div class="campo-fecha">
+          <label class="label-fecha">Fecha de nacimiento</label>
+          <div class="input-wrapper">
+            <span class="icono-fecha"><i class="bi bi-calendar"></i></span>
+            <input type="date" class="input-fecha" formControlName="fechaNacimiento">
+          </div>
+        </div>
+  
+        <!-- Contraseña -->
+        <div class="campo-contrasena">
+          <label class="label-contrasena">Contraseña *</label>
+          <div class="input-wrapper">
+            <span class="icono-contrasena"><i class="bi bi-lock"></i></span>
+            <input type="password" class="input-contrasena" formControlName="password" placeholder="********">
+          </div>
+          <div class="error-message" *ngIf="registroForm.get('password')?.invalid && registroForm.get('password')?.touched">
+            Contraseña requerida
+          </div>
+        </div>
+  
+        <!-- Confirmar contraseña -->
+        <div class="campo-confirmar">
+          <label class="label-confirmar">Confirmar contraseña *</label>
+          <div class="input-wrapper">
+            <span class="icono-confirmar"><i class="bi bi-lock"></i></span>
+            <input type="password" class="input-confirmar" formControlName="confirmarPassword" placeholder="********">
+          </div>
+          <div class="error-message" *ngIf="registroForm.hasError('passwordMismatch') && registroForm.get('confirmarPassword')?.touched">
+            Las contraseñas no coinciden
+          </div>
+        </div>
+  
+        <!-- Botón -->
+        <button type="submit" class="boton-registro" [disabled]="registroForm.invalid">
+          Registrarse
+        </button>
+      </form>
+  
+      <!-- Enlace a login -->
+      <div class="enlace-login">
+        <a routerLink="/login" class="link-login">¿Ya tienes cuenta? Inicia sesión</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>

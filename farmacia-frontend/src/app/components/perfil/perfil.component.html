@@ -1,0 +1,81 @@
+<div class="perfil-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <div class="perfil-container">
+    <div class="perfil-card">
+      <div class="perfil-header">
+        <h2>Mi Perfil</h2>
+        <p>Gestiona tu información personal</p>
+      </div>
+
+      <!-- Mensaje de notificación -->
+      <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': mensajeTipo === 'success', 'alert-danger': mensajeTipo === 'error'}">
+        {{ mensaje }}
+      </div>
+
+      <div class="perfil-body">
+        <!-- Sección de avatar -->
+        <div class="avatar-section">
+          <div class="avatar-container">
+            <img [src]="avatarPreview || 'no-image.png'" class="avatar-img" alt="Avatar">
+            <label class="avatar-upload-btn">
+              <i class="bi bi-camera-fill"></i>
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+            </label>
+          </div>
+          <button class="btn-upload-avatar" (click)="subirAvatar()" *ngIf="selectedFile">Subir nueva foto</button>
+        </div>
+
+        <!-- Formulario de datos personales -->
+        <form class="perfil-form">
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" class="form-control" [(ngModel)]="perfil.nombre" name="nombre" required>
+          </div>
+
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" class="form-control" [(ngModel)]="perfil.email" name="email" disabled>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group half">
+              <label>Código área</label>
+              <input type="text" class="form-control" [(ngModel)]="perfil.codigoArea" name="codigoArea" placeholder="Ej: +57">
+            </div>
+            <div class="form-group half">
+              <label>Teléfono</label>
+              <input type="text" class="form-control" [(ngModel)]="perfil.telefono" name="telefono" placeholder="Número de contacto">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha de nacimiento</label>
+            <input type="date" class="form-control" [(ngModel)]="perfil.fechaNacimiento" name="fechaNacimiento">
+          </div>
+
+          <div class="form-group">
+            <label>Rol</label>
+            <input type="text" class="form-control" [value]="rol" disabled>
+          </div>
+
+          <button type="button" class="btn-guardar" (click)="actualizarPerfil()">Guardar cambios</button>
+        </form>
+
+        <!-- Sección cambio de contraseña -->
+        <div class="password-section">
+          <h4>Cambiar contraseña</h4>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Nueva contraseña (mínimo 6 caracteres)" [(ngModel)]="nuevaPassword">
+          </div>
+          <button class="btn-password" (click)="cambiarPassword()">Actualizar contraseña</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+  
+</div>

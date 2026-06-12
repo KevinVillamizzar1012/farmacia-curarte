@@ -1,0 +1,175 @@
+<div class="home-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <!-- BÚSQUEDA RÁPIDA -->
+  <div class="search-section">
+    <div class="search-container">
+      <i class="bi bi-search"></i>
+      <input type="text" class="search-input" placeholder="Buscar medicamentos..." 
+             [(ngModel)]="terminoBusqueda" (input)="onSearchInput()" 
+             (keyup.enter)="buscar()" (blur)="closeSuggestions()" autocomplete="off">
+      <button class="search-btn" (click)="buscar()">Buscar</button>
+    </div>
+    <div class="suggestions-dropdown" *ngIf="showSuggestions && suggestions.length">
+      <div *ngFor="let prod of suggestions" (click)="selectSuggestion(prod)" class="suggestion-item">{{ prod.nombre }}</div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main-content">
+    <div class="home-card">
+      <div class="card-header">
+        <h3><i class="bi bi-speedometer2"></i> Panel de Administración</h3>
+      </div>
+      <div class="card-body">
+        <!-- MÉTRICAS -->
+        <div class="metricas-row">
+          <div class="metrica-card-static">
+            <div class="metrica-valor">{{ ventasHoy | currency:'COP':'symbol-narrow' }}</div>
+            <div class="metrica-label">Ventas de hoy</div>
+          </div>
+          <div class="flip-card-metrica" (click)="toggleFlipStock()">
+            <div class="flip-card-inner-metrica" [class.flipped-stock]="flipStock">
+              <div class="flip-front-metrica">
+                <div class="metrica-valor">{{ stockBajoCount }}</div>
+                <div class="metrica-label">Productos con stock bajo</div>
+              </div>
+              <div class="flip-back-metrica">
+                <div class="metrica-back-content">
+                  <h5>⚠️ Productos con stock bajo</h5>
+                  <ul class="lista-detalle">
+                    <li *ngFor="let p of stockBajoLista">{{ p.nombre }} (Stock: {{ p.stock }} / Mín: {{ p.stockMinimo }})</li>
+                    <li *ngIf="stockBajoLista.length === 0">No hay productos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flip-card-metrica" (click)="toggleFlipVencimiento()">
+            <div class="flip-card-inner-metrica" [class.flipped-vencimiento]="flipVencimiento">
+              <div class="flip-front-metrica">
+                <div class="metrica-valor">{{ proximosVencerCount }}</div>
+                <div class="metrica-label">Próximos a vencer (30d)</div>
+              </div>
+              <div class="flip-back-metrica">
+                <div class="metrica-back-content">
+                  <h5>📅 Próximos a vencer</h5>
+                  <ul class="lista-detalle">
+                    <li *ngFor="let p of proximosVencerLista">{{ p.nombre }} (Vence: {{ p.fechaVencimiento | date:'dd/MM/yyyy' }})</li>
+                    <li *ngIf="proximosVencerLista.length === 0">No hay productos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GRÁFICO Y ÚLTIMAS VENTAS -->
+        <div class="dashboard-extras">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="extra-card">
+                <div class="extra-card-header">📈 Ventas últimos 7 días</div>
+                <div class="extra-card-body">
+                  <canvas baseChart
+                    [data]="chartData"
+                    [labels]="chartLabels"
+                    [options]="chartOptions"
+                    type="bar">
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="extra-card">
+                <div class="extra-card-header">🕒 Últimas ventas</div>
+                <div class="extra-card-body">
+                  <table class="extra-table">
+                    <thead><tr><th>ID</th><th>Fecha</th><th>Total</th><th>Usuario</th></tr></thead>
+                    <tbody>
+                      <tr *ngFor="let v of ultimasVentas">
+                        <td>{{ v.id }}</td>
+                        <td>{{ v.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>\${{ v.total }}</td>
+                        <td>{{ v.usuario }}</td>
+                      </tr>
+                      <tr *ngIf="ultimasVentas.length === 0"><td colspan="4">No hay ventas registradas</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <div class="extra-card">
+                <div class="extra-card-header">🏆 Top 5 productos más vendidos</div>
+                <div class="extra-card-body">
+                  <table class="extra-table">
+                    <thead><tr><th>Producto</th><th>Cantidad vendida</th></tr></thead>
+                    <tbody>
+                      <tr *ngFor="let p of productosMasVendidos">
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.cantidadVendida }} uds.</td>
+                      </tr>
+                      <tr *ngIf="!productosMasVendidos.length"><td colspan="2">Sin datos</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MÁS VENDIDOS (flip cards) -->
+        <div class="top-productos">
+          <h4>🔥 Más vendidos del día</h4>
+          <div class="productos-mini-grid">
+            <div *ngFor="let prod of productosMasVendidos" class="flip-card" (click)="toggleFlip(prod)">
+              <div class="flip-card-inner" [class.flipped]="prod.flipped">
+                <div class="flip-front">
+                  <div class="producto-mini-card">
+                    <span class="prod-nombre">{{ prod.nombre }}</span>
+                    <span class="prod-cantidad">{{ prod.cantidadVendida }} uds.</span>
+                  </div>
+                </div>
+                <div class="flip-back">
+                  <div class="detalle">
+                    <p><strong>ID:</strong> {{ prod.productoId }}</p>
+                    <p><strong>Precio:</strong> \${{ prod.precio }}</p>
+                    <p><strong>Categoría:</strong> {{ prod.categoria }}</p>
+                    <p><strong>Stock:</strong> {{ prod.stock }}</p>
+                    <button class="btn-ver" (click)="irACatalogo(prod.productoId); $event.stopPropagation()">Ver</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!productosMasVendidos.length" class="no-data">Sin ventas hoy</div>
+          </div>
+        </div>
+
+        <!-- ACCIONES RÁPIDAS (con el nuevo botón de banners) -->
+        <div class="acciones-rapidas">
+          <h4>Acciones rápidas</h4>
+          <div class="botones-grid">
+            <a routerLink="/gestion-usuarios" class="btn-admin-card"><i class="bi bi-people-fill"></i><span>Gestionar Usuarios</span></a>
+            <a routerLink="/reportes" class="btn-admin-card"><i class="bi bi-bar-chart-steps"></i><span>Reportes</span></a>
+            <a routerLink="/historial-inventario" class="btn-admin-card"><i class="bi bi-clock-history"></i><span>Historial Inventario</span></a>
+            <a routerLink="/catalogo" class="btn-admin-card"><i class="bi bi-grid-3x3-gap-fill"></i><span>Catálogo</span></a>
+            <a routerLink="/punto-venta" class="btn-admin-card"><i class="bi bi-cart-plus-fill"></i><span>Punto de Venta</span></a>
+            <!-- NUEVO BOTÓN -->
+            <a routerLink="/gestion-banners" class="btn-admin-card"><i class="bi bi-images"></i><span>Gestionar Banners</span></a>
+          </div>
+          <div class="export-buttons">
+            <button class="btn-excel" (click)="exportarExcel()"><i class="bi bi-file-earmark-excel"></i> Exportar a Excel</button>
+            <button class="btn-pdf" (click)="exportarPDF()"><i class="bi bi-file-earmark-pdf"></i> Exportar a PDF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>

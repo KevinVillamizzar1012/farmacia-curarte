@@ -1,0 +1,118 @@
+<div class="reportes-wrapper">
+  <!-- TOP BAR REUTILIZABLE (sin carrito) -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <div class="main-content-reportes">
+    <div class="reportes-card">
+      <div class="card-header">
+        <h3><i class="bi bi-bar-chart-steps"></i> Reportes</h3>
+      </div>
+      <div class="card-body">
+        <!-- ========== REPORTE DE VENTAS ========== -->
+        <div class="reporte-section">
+          <h4><i class="bi bi-cart-check"></i> Ventas por período</h4>
+          <div class="filtros-fecha">
+            <div class="form-group">
+              <label>Fecha inicio</label>
+              <input type="date" class="form-control" [(ngModel)]="fechaInicio">
+            </div>
+            <div class="form-group">
+              <label>Fecha fin</label>
+              <input type="date" class="form-control" [(ngModel)]="fechaFin">
+            </div>
+            <div class="form-group accion">
+              <button class="btn-consultar" (click)="cargarVentas()">Consultar</button>
+            </div>
+          </div>
+          <div *ngIf="ventas.length > 0" class="tabla-botones">
+            <div class="botones-exportar">
+              <button class="btn-excel" (click)="exportarVentasExcel()"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+              <button class="btn-pdf" (click)="exportarVentasPDF()"><i class="bi bi-file-earmark-pdf"></i> PDF</button>
+            </div>
+            <div class="table-responsive">
+              <table class="tabla-reportes">
+                <thead>
+                  <tr><th>ID</th><th>Fecha</th><th>Total</th><th>Usuario ID</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let v of ventas">
+                    <td>{{ v.id }}</td>
+                    <td>{{ v.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>\${{ v.total }}</td>
+                    <td>{{ v.usuarioId }}</td>
+                  </tr>
+                  <tr *ngIf="ventas.length === 0"><td colspan="4" class="text-center">No hay ventas en el período seleccionado</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="cargandoVentas" class="text-center">Cargando...</div>
+        </div>
+
+        <!-- ========== REPORTE DE INVENTARIO ========== -->
+        <div class="reporte-section inventario-section">
+          <h4><i class="bi bi-box-seam"></i> Inventario</h4>
+
+          <!-- Tabla 1: Productos con stock bajo -->
+          <div class="tabla-stock-bajo">
+            <h5><i class="bi bi-exclamation-triangle-fill"></i> Productos con stock bajo</h5>
+            <div class="table-responsive">
+              <table class="tabla-inventario stock-bajo-table">
+                <thead>
+                  <tr><th>Nombre</th><th>Stock actual</th><th>Stock mínimo</th><th>Categoría</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of stockBajo">
+                    <td>{{ p.nombre }}</td>
+                    <td class="text-danger">{{ p.stock }}</td>
+                    <td>{{ p.stockMinimo }}</td>
+                    <td>{{ p.categoria }}</td>
+                  </tr>
+                  <tr *ngIf="stockBajo.length === 0">
+                    <td colspan="4" class="text-center">✅ No hay productos con stock bajo.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Botones de exportación debajo de la tabla de stock bajo -->
+            <div class="export-buttons-under-table">
+              <button class="btn-excel" (click)="exportarStockBajoExcel()"><i class="bi bi-file-earmark-excel"></i> Exportar Stock bajo (Excel)</button>
+              <button class="btn-pdf" (click)="exportarStockBajoPDF()"><i class="bi bi-file-earmark-pdf"></i> Exportar Stock bajo (PDF)</button>
+            </div>
+          </div>
+
+          <!-- Tabla 2: Productos próximos a vencer -->
+          <div class="tabla-proximos-vencer">
+            <h5><i class="bi bi-calendar-exclamation"></i> Próximos a vencer (30 días)</h5>
+            <div class="table-responsive">
+              <table class="tabla-inventario vencimiento-table">
+                <thead>
+                  <tr><th>Nombre</th><th>Fecha de vencimiento</th><th>Stock</th><th>Categoría</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of proximosVencer">
+                    <td>{{ p.nombre }}</td>
+                    <td class="text-warning">{{ p.fechaVencimiento | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td>{{ p.categoria }}</td>
+                  </tr>
+                  <tr *ngIf="proximosVencer.length === 0">
+                    <td colspan="4" class="text-center">✅ No hay productos próximos a vencer.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Botones de exportación debajo de la tabla de próximos a vencer -->
+            <div class="export-buttons-under-table">
+              <button class="btn-excel" (click)="exportarProximosVencerExcel()"><i class="bi bi-file-earmark-excel"></i> Exportar Próximos a vencer (Excel)</button>
+              <button class="btn-pdf" (click)="exportarProximosVencerPDF()"><i class="bi bi-file-earmark-pdf"></i> Exportar Próximos a vencer (PDF)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>

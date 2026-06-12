@@ -1,0 +1,31 @@
+<div class="top-bar">
+  <div class="logo-area">
+    <a [routerLink]="homeLink" class="logo-link">
+      <img src="logo1.png" alt="Farmacias Curarte" class="top-logo">
+    </a>
+  </div>
+  <div class="user-area">
+    <!-- Botón carrito (solo si showCart es true) -->
+    <button *ngIf="showCart" class="cart-icon-btn" (click)="onCartClick()">
+      <img src="cart-icon.png" alt="Carrito" class="cart-icon-img">
+      <span class="cart-badge" *ngIf="cartItemsCount > 0">{{ cartItemsCount }}</span>
+    </button>
+
+    <div class="custom-dropdown" *ngIf="isLoggedIn">
+      <button class="btn-user" (click)="toggleDropdown()">
+        <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar-mini" width="30" height="30">
+        <i *ngIf="!avatarUrl" class="bi bi-person-circle"></i>
+        {{ username }} ({{ rol }})
+      </button>
+      <div class="custom-dropdown-menu" *ngIf="dropdownOpen">
+        <a class="dropdown-item" routerLink="/perfil">Mi perfil</a>
+        <button class="dropdown-item" (click)="logout()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <div class="auth-buttons" *ngIf="!isLoggedIn">
+      <button class="btn-login" (click)="login()">Iniciar sesión</button>
+      <button class="btn-registro" (click)="registro()">Registrarse</button>
+    </div>
+  </div>
+</div>

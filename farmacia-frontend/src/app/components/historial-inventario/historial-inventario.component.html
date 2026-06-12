@@ -1,0 +1,98 @@
+<div class="historial-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <div class="main-content-historial">
+    <div class="historial-card">
+      <div class="card-header">
+        <h3><i class="bi bi-clock-history"></i> Historial de movimientos de inventario</h3>
+        <button class="btn-comprar" (click)="abrirModalCompra()">+ Registrar Compra</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="tabla-movimientos">
+            <thead>
+              <tr><th>ID</th><th>Producto</th><th>Cantidad</th><th>Tipo</th><th>Descripción</th><th>Fecha</th><th>Usuario</th><th>Proveedor</th><th>Observaciones</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of movimientos | slice: (paginaActual-1)*itemsPorPagina : paginaActual*itemsPorPagina">
+                <td>{{ m.id }}</td>
+                <td>{{ m.productoNombre }}</td>
+                <td [class.text-danger]="m.cantidad < 0" [class.text-success]="m.cantidad > 0">{{ m.cantidad }}</td>
+                <td>{{ m.tipo }}</td>
+                <td>{{ m.descripcion }}</td>
+                <td>{{ m.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ m.usuarioNombre }}</td>
+                <td>{{ m.proveedor || '-' }}</td>
+                <td>{{ m.observaciones || '-' }}</td>
+              </tr>
+              <tr *ngIf="movimientos.length === 0"><td colspan="9" class="text-center">No hay movimientos</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-controls" *ngIf="movimientos.length > itemsPorPagina">
+          <div class="items-per-page">
+            <label>Mostrar:</label>
+            <select [(ngModel)]="itemsPorPagina" (change)="paginaActual = 1">
+              <option [value]="10">10</option>
+              <option [value]="25">25</option>
+              <option [value]="50">50</option>
+            </select>
+          </div>
+          <div class="pages">
+            <button (click)="paginaActual = paginaActual - 1" [disabled]="paginaActual === 1">Anterior</button>
+            <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+            <button (click)="paginaActual = paginaActual + 1" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+  
+</div>
+
+<!-- Modal para registrar compra -->
+<div class="modal" [class.show]="showCompraModal" *ngIf="showCompraModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Registrar compra</h5>
+        <button type="button" class="close" (click)="cerrarModalCompra()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let item of compraData.items; let i = index" class="item-compra">
+          <div class="form-group">
+            <label>Producto *</label>
+            <select class="form-control" [(ngModel)]="item.productoId">
+              <option [value]="0">Seleccione...</option>
+              <option *ngFor="let p of productos" [value]="p.id">{{ p.nombre }} (Stock: {{ p.stock }})</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cantidad *</label>
+            <input type="number" class="form-control" [(ngModel)]="item.cantidad" min="1">
+          </div>
+          <button *ngIf="compraData.items.length > 1" type="button" class="btn-remove-item" (click)="eliminarItemCompra(i)">Eliminar</button>
+          <hr *ngIf="i < compraData.items.length-1">
+        </div>
+        <button type="button" class="btn-add-item" (click)="agregarItemCompra()">+ Agregar otro producto</button>
+
+        <div class="form-group mt-3">
+          <label>Proveedor</label>
+          <input type="text" class="form-control" [(ngModel)]="compraData.proveedor" placeholder="Nombre del proveedor">
+        </div>
+        <div class="form-group">
+          <label>Observaciones</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="compraData.observaciones" placeholder="Factura, notas, etc."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-cancelar" (click)="cerrarModalCompra()">Cancelar</button>
+        <button type="button" class="btn-guardar" (click)="guardarCompra()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

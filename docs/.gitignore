@@ -1,0 +1,38 @@
+# Compiled output
+/target/
+/dist/
+/build/
+
+# Backend
+*.log
+*.pid
+.mvn/
+mvnw
+mvnw.cmd
+
+# Frontend
+/node_modules/
+/.angular/
+/tmp/
+*.tsbuildinfo
+.env
+*.cache
+
+# IDE
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Uploaded files (imágenes locales, no subir a GitHub)
+uploads/
+
+# Environment variables (secretos)
+application.properties

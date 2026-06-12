@@ -1,0 +1,404 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .home-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #082c32, #25d3aa);
+    font-family: 'Numans', sans-serif;
+  }
+  
+  /* TOP BAR */
+  .top-bar {
+    background-color: #07666D;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    flex-wrap: wrap;
+  }
+  .logo-area { display: flex; align-items: center; gap: 0.75rem; }
+  .top-logo { height: 40px; width: auto; }
+  .top-nombre { color: white; font-weight: bold; font-size: 1.4rem; }
+  .btn-user {
+    background-color: #0FB7CF;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+  .custom-dropdown { position: relative; }
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #07666D;
+    border-radius: 8px;
+    padding: 0.5rem;
+    min-width: 150px;
+    z-index: 1000;
+  }
+  .dropdown-item {
+    background: none;
+    border: none;
+    color: white;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    padding: 0.3rem 1rem;
+  }
+  .dropdown-item:hover { background-color: #0FB7CF; }
+  
+  /* SEARCH */
+  .search-section {
+    position: relative;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+  .search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 60px;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .search-container i { color: #6c757d; font-size: 1.2rem; margin-right: 0.5rem; }
+  .search-input {
+    flex: 1;
+    border: none;
+    padding: 0.6rem 0;
+    outline: none;
+    font-size: 0.9rem;
+  }
+  .search-btn {
+    background-color: #0FB7CF;
+    border: none;
+    border-radius: 50px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  .suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 8px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .suggestion-item { padding: 8px 12px; cursor: pointer; }
+  .suggestion-item:hover { background-color: #f0f2f5; color: #0FB7CF; }
+  
+  /* MAIN CONTENT */
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+  }
+  .home-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border-radius: 24px;
+    overflow: hidden;
+  }
+  .card-header {
+    background: rgba(0,0,0,0.3);
+    padding: 1rem 1.5rem;
+  }
+  .card-header h3 { color: white; margin: 0; }
+  .card-body { padding: 2rem; }
+  
+  /* MÉTRICAS - Flip cards y estática */
+  .metricas-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .metrica-card-static {
+    flex: 1;
+    min-width: 180px;
+    height: 220px;
+    background: white;
+    border-radius: 20px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .metrica-valor { font-size: 2rem; font-weight: bold; color: #0FB7CF; }
+  .metrica-label { font-size: 0.9rem; color: #6c757d; }
+  
+  .flip-card-metrica {
+    background-color: transparent;
+    width: 100%;
+    min-width: 180px;
+    height: 220px;
+    perspective: 1000px;
+    cursor: pointer;
+    flex: 1;
+  }
+  .flip-card-inner-metrica {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .flip-card-inner-metrica.flipped-stock { transform: rotateY(180deg); }
+  .flip-card-inner-metrica.flipped-vencimiento { transform: rotateY(180deg); }
+  .flip-front-metrica, .flip-back-metrica {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .flip-back-metrica {
+    transform: rotateY(180deg);
+    overflow-y: auto;
+    justify-content: flex-start;
+    text-align: left;
+  }
+  .metrica-back-content { width: 100%; }
+  .metrica-back-content h5 { margin-bottom: 0.5rem; color: #082c32; }
+  .lista-detalle {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+  .lista-detalle li {
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  /* MÁS VENDIDOS (flip cards) */
+  .top-productos { margin-bottom: 2rem; }
+  .top-productos h4 { color: white; margin-bottom: 1rem; }
+  .productos-mini-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  .flip-card {
+    background-color: transparent;
+    width: 240px;
+    height: 140px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 16px;
+  }
+  .flip-card-inner.flipped { transform: rotateY(180deg); }
+  .flip-front, .flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .flip-back {
+    background: #f8f9fa;
+    transform: rotateY(180deg);
+    flex-direction: column;
+  }
+  .producto-mini-card { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+  .prod-nombre { font-weight: bold; color: #082c32; font-size: 1rem; }
+  .prod-cantidad { color: #0FB7CF; font-size: 0.9rem; }
+  .detalle { font-size: 0.8rem; text-align: left; width: 100%; }
+  .detalle p { margin: 0.2rem 0; }
+  .btn-ver {
+    background: #0FB7CF;
+    border: none;
+    border-radius: 20px;
+    padding: 0.2rem 0.8rem;
+    color: white;
+    font-size: 0.7rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  .no-data { color: white; font-style: italic; text-align: center; }
+  
+  /* ========== NUEVAS SECCIONES (Gráfico, últimas ventas, exportación) ========== */
+  .dashboard-extras {
+    margin-top: 2rem;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .col-md-6 {
+    flex: 1;
+    min-width: 280px;
+  }
+  .extra-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .extra-card-header {
+    background-color: #07666D;
+    color: white;
+    padding: 0.8rem 1rem;
+    font-weight: bold;
+  }
+  .extra-card-body {
+    padding: 1rem;
+  }
+  .extra-table {
+    width: 100%;
+    font-size: 0.85rem;
+    border-collapse: collapse;
+  }
+  .extra-table th, .extra-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .extra-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  .mt-3 { margin-top: 1rem; }
+  
+  /* ACCIONES RÁPIDAS (con exportación) */
+  .acciones-rapidas h4 { color: white; margin-bottom: 1rem; }
+  .botones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+  }
+  .btn-admin-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .btn-admin-card:hover { background: rgba(255,255,255,0.25); transform: translateY(-5px); }
+  .btn-admin-card i { font-size: 2rem; }
+  .btn-admin-card span { font-weight: bold; font-size: 0.9rem; }
+  
+  .export-buttons {
+    margin-top: 1rem;
+    text-align: right;
+  }
+  .export-buttons button {
+    margin-left: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 40px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn-excel {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-pdf {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* BOTTOM BAR */
+  .bottom-bar {
+    background-color: #07666D;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: white;
+  }
+  .bottom-left .footer-logo { height: 35px; }
+  .bottom-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+  }
+  .info-item { display: flex; align-items: center; gap: 0.3rem; }
+  .social-icons { display: flex; gap: 1rem; }
+  .social-icons a { color: white; font-size: 1.3rem; transition: color 0.2s; }
+  .social-icons a:hover { color: #0FB7CF; }
+  .copyright { font-size: 0.7rem; opacity: 0.8; }
+  .footer-right { flex: 1; }
+  
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .main-content { padding: 1rem; }
+    .metricas-row { flex-direction: column; align-items: stretch; }
+    .flip-card-metrica { min-width: auto; height: auto; }
+    .flip-card { width: 100%; max-width: 280px; margin: 0 auto; }
+    .top-bar { flex-direction: column; text-align: center; }
+    .bottom-bar { flex-direction: column; text-align: center; }
+    .contact-info { flex-direction: column; gap: 0.5rem; }
+    .botones-grid { grid-template-columns: 1fr; }
+    .row { flex-direction: column; }
+    .export-buttons { text-align: center; }
+    .export-buttons button { margin: 0.3rem; }
+  }

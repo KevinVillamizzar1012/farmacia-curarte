@@ -1,0 +1,72 @@
+<div class="home-wrapper">
+  <!-- TOP BAR REUTILIZABLE -->
+  <app-top-bar [showCart]="false"></app-top-bar>
+
+  <!-- BARRA DE BÚSQUEDA -->
+  <div class="search-section">
+    <div class="search-container">
+      <i class="bi bi-search"></i>
+      <input type="text" class="search-input" placeholder="Buscar medicamentos..." 
+             [(ngModel)]="terminoBusqueda" (input)="onSearchInput()" 
+             (keyup.enter)="buscar()" (blur)="closeSuggestions()" autocomplete="off">
+      <button class="search-btn" (click)="buscar()">Buscar</button>
+    </div>
+    <div class="suggestions-dropdown" *ngIf="showSuggestions && suggestions.length">
+      <div *ngFor="let prod of suggestions" (click)="selectSuggestion(prod)" class="suggestion-item">{{ prod.nombre }}</div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main-content">
+    <div class="home-card">
+      <div class="card-header">
+        <h3><i class="bi bi-person-badge"></i> Área de Empleado</h3>
+      </div>
+      <div class="card-body">
+        <!-- MÉTRICA: Ventas de hoy -->
+        <div class="metricas-row">
+          <div class="metrica-card">
+            <div class="metrica-valor">{{ ventasHoy | currency:'COP':'symbol-narrow' }}</div>
+            <div class="metrica-label">Ventas de hoy</div>
+          </div>
+        </div>
+
+        <!-- Botón principal: Punto de Venta -->
+        <div class="accion-principal">
+          <a routerLink="/punto-venta" class="btn-pos">💰 Ir a Punto de Venta</a>
+        </div>
+
+        <!-- Alertas de inventario (dos columnas) -->
+        <div class="alertas-row">
+          <div class="alerta-card stock">
+            <div class="alerta-header">⚠️ Productos con stock bajo</div>
+            <div class="alerta-body">
+              <ul>
+                <li *ngFor="let p of stockBajo">{{ p.nombre }} - Stock: {{ p.stock }} (mín: {{ p.stockMinimo }})</li>
+                <li *ngIf="stockBajo.length === 0">✅ No hay productos con stock bajo.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="alerta-card vencimiento">
+            <div class="alerta-header">📅 Próximos a vencer (30 días)</div>
+            <div class="alerta-body">
+              <ul>
+                <li *ngFor="let p of proximosVencer">{{ p.nombre }} - Vence: {{ p.fechaVencimiento | date:'dd/MM/yyyy' }}</li>
+                <li *ngIf="proximosVencer.length === 0">✅ No hay productos próximos a vencer.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enlaces adicionales -->
+        <div class="enlaces">
+          <a routerLink="/catalogo" class="btn-secundario">🔍 Ver catálogo</a>
+          <a routerLink="/historial-inventario" class="btn-secundario">📜 Historial de inventario</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR REUTILIZABLE -->
+  <app-bottom-bar></app-bottom-bar>
+</div>

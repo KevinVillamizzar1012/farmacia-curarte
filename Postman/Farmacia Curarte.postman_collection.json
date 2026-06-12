@@ -1,0 +1,1404 @@
+{
+  "info": {
+    "_postman_id": "578568aa-d08b-4c6e-aed0-c0bd7544816d",
+    "name": "Farmacia Curarte",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38412965"
+  },
+  "item": [
+    {
+      "name": "http://localhost:8080/api/auth/login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/auth/registro",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"superadmin\",\r\n  \"password\": \"admin123\",\r\n  \"email\": \"super@farmacia.com\",\r\n  \"nombreCompleto\": \"Super Admin\",\r\n  \"rol\": \"ADMIN\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/auth/registro",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "auth",
+            "registro"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/admin/usuarios/3",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE3ODA0NDY0NTIsImV4cCI6MTc4MDUzMjg1Mn0.TacodHKtTca6-FQrO1orQG5nN4aHIy-3-_t7o9OU4b0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"empleado1\",\r\n  \"password\": \"nueva123\",\r\n  \"email\": \"nuevo@email.com\",\r\n  \"nombreCompleto\": \"Juan Perez Actualizado\",\r\n  \"rol\": \"EMPLEADO\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/admin/usuarios/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "usuarios",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/admin/usuarios/9",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjIiLCJpYXQiOjE3ODA0NTE1NzEsImV4cCI6MTc4MDUzNzk3MX0.X1amz8GlegoCTN8UdotcNW-vDLQrksywAy6hxg_DoNA",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/usuarios/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "usuarios",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/admin/usuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE3ODA0NDY0NTIsImV4cCI6MTc4MDUzMjg1Mn0.TacodHKtTca6-FQrO1orQG5nN4aHIy-3-_t7o9OU4b0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/admin/crear",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4MDQ3LCJleHAiOjE3ODEzMDQ0NDd9.QI3m7Cu0KUyzqnpWQjKDmBZbkq9G2SIdytzXcA-5spU",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Ibuprofeno 400mg\",\r\n  \"categoria\": \"Antiinflamatorio\",\r\n  \"codigoBarras\": \"7701234567891\",\r\n  \"stock\": 100,\r\n  \"stockMinimo\": 10,\r\n  \"precio\": 8.50,\r\n  \"fechaVencimiento\": \"2026-12-31\",\r\n  \"descripcion\": \"Antiinflamatorio no esteroideo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/admin/crear",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "admin",
+            "crear"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/consultar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/consultar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "consultar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/consultar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/consultar?nombre=paracetamol\n\n",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "consultar"
+          ],
+          "query": [
+            {
+              "key": "nombre",
+              "value": "paracetamol\n\n"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/codigo/7700000046141",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/codigo/7700000046141",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "codigo",
+            "7700000046141"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/admin/actualizar/201",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Ibuprofeno 400mg\",\r\n  \"categoria\": \"Antiinflamatorio\",\r\n  \"codigoBarras\": \"7701234567891\",\r\n  \"stock\": 100,\r\n  \"stockMinimo\": 10,\r\n  \"precio\": 2.50,\r\n  \"fechaVencimiento\": \"2026-12-31\",\r\n  \"descripcion\": \"Antiinflamatorio no esteroideo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/admin/actualizar/201",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "admin",
+            "actualizar",
+            "201"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/admin/eliminar/201",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/admin/eliminar/201",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "admin",
+            "eliminar",
+            "201"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/admin/stock-bajo",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/admin/stock-bajo",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "admin",
+            "stock-bajo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/admin/stock-bajo",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjIiLCJpYXQiOjE3ODA1ODgxNzUsImV4cCI6MTc4MDY3NDU3NX0.tNKV2XOaTIlesll8MjDtQAAETEHXQ3YAAtJJRjc5rAs",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/admin/proximos-vencer?dias=30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "admin",
+            "proximos-vencer"
+          ],
+          "query": [
+            {
+              "key": "dias",
+              "value": "30"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/compras/registrar",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"items\": [\r\n    { \"productoId\": 1, \"cantidad\": 50 }\r\n  ],\r\n  \"proveedor\": \"Distribuidora XYZ\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/compras/registrar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "compras",
+            "registrar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/ventas/reportes/ventas?inicio=2026-06-01&fin=2026-06-30",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ventas/reportes/ventas?inicio=2026-06-01&fin=2026-06-30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ventas",
+            "reportes",
+            "ventas"
+          ],
+          "query": [
+            {
+              "key": "inicio",
+              "value": "2026-06-01"
+            },
+            {
+              "key": "fin",
+              "value": "2026-06-30"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/reportes/productos-mas-vendidos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE4NTY0LCJleHAiOjE3ODEzMDQ5NjR9.e6qiUHCV34e9gehwDclp0ftmk_X9rReXFEU7MU1cjUo",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/reportes/productos-mas-vendidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reportes",
+            "productos-mas-vendidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/reportes/productos-mas-vendidos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE3ODA0NDY0NTIsImV4cCI6MTc4MDUzMjg1Mn0.TacodHKtTca6-FQrO1orQG5nN4aHIy-3-_t7o9OU4b0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/reportes/productos-mas-vendidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reportes",
+            "productos-mas-vendidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/ventas/registrar",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE5NTkyLCJleHAiOjE3ODEzMDU5OTJ9.Ym3jbUI70BAG75ittLYdLJxHxmqMCXtbwB3JU15DyOY",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"usuarioId\": 1,\r\n  \"items\": [\r\n    { \"productoId\": 8, \"cantidad\": 2 }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ventas/registrar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ventas",
+            "registrar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/ventas/reportes/ultimas-ventas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc4MTAyNTc3MSwiZXhwIjoxNzgxMTEyMTcxfQ.dPP0HdkbatRhaJKLHLbkslQbaY8793Wz-32eIEFazpY",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/ventas/reportes/ventas-por-dia",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ventas",
+            "reportes",
+            "ventas-por-dia"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/ventas/reportes/ventas-por-dia",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjE5NTkyLCJleHAiOjE3ODEzMDU5OTJ9.Ym3jbUI70BAG75ittLYdLJxHxmqMCXtbwB3JU15DyOY",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/ventas/reportes/ventas-por-dia",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ventas",
+            "reportes",
+            "ventas-por-dia"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/perfil",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjbGllbnRlX251ZXZvIiwiaWF0IjoxNzgxMDUwMTYyLCJleHAiOjE3ODExMzY1NjJ9.B4KMSE02X4_P3vfw34gSvmPYwpQ14zutXSqmAWaMsK0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "d6c81a26-c439-4dbd-a20a-5517665c9388",
+              "src": "/C:/Users/usuario/Downloads/descarga.jfif"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/perfil/avatar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "perfil",
+            "avatar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/perfil",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjbGllbnRlX251ZXZvIiwiaWF0IjoxNzgxMDUwMTYyLCJleHAiOjE3ODExMzY1NjJ9.B4KMSE02X4_P3vfw34gSvmPYwpQ14zutXSqmAWaMsK0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/perfil",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "perfil"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/1/imagenes",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {}
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc4MTExNDc4OCwiZXhwIjoxNzgxMjAxMTg4fQ.7A05oEqJbpYUvDWSdhnBypvzZ9OIDlq7oxDjh-g1l5I",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "files",
+              "type": "file",
+              "uuid": "961ce719-5d64-4b16-887c-a8c8d780d2d4",
+              "src": "/C:/Users/usuario/Downloads/metformina.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/productos/1/imagenes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "1",
+            "imagenes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/productos/1/imagenes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/productos/1/imagenes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "productos",
+            "1",
+            "imagenes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners/activos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/banners/activos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners",
+            "activos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMTI3OTMzLCJleHAiOjE3ODEyMTQzMzN9.r9RWIxmfiEYYHrCIHBTnXn5zFARvL28Qh1MehLkJRFQ",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "orden",
+              "value": "1",
+              "type": "text",
+              "uuid": "a6f45a35-1133-48f6-aac5-d0a62fa836e1"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "c04ad46f-f8fe-478a-8f3f-dcdd13b253cb",
+              "src": "/C:/Users/usuario/Downloads/Adobe Express - file.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/banners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc4MTEyNzI0MSwiZXhwIjoxNzgxMjEzNjQxfQ.L7pwybVZvLY-cQo6uua9usxO8FS1C0LqFVgVc20RRWc",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "",
+              "type": "file",
+              "uuid": "af5ce842-84b8-41a1-b367-d6fa22dece89",
+              "src": "/C:/Users/usuario/Downloads/Marrón y Azul Verdoso Infantil Fiesta Premamá Banner Horizontal.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/banners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/inventario/movimientos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjIiLCJpYXQiOjE3ODA2MDg5MTIsImV4cCI6MTc4MDY5NTMxMn0.YEsm5zyB09G-EfaiA6WhMWkyxE_Nyd54-r6Wc-TWqo8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/inventario/movimientos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "inventario",
+            "movimientos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/admin/usuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/admin/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners/activos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/banners/activos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners",
+            "activos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/banners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "cc3c8c1c-37d8-484e-ac34-d53f11e56bce",
+              "src": "/C:/Users/usuario/Downloads/Gray Geometric Business Consultant Linkedln Banner (1).png"
+            },
+            {
+              "key": "orden",
+              "value": "4",
+              "type": "text",
+              "uuid": "5b44f494-9413-43e1-859a-92ad2778fa38"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/banners",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners/2/orden",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/banners/2/orden?orden=4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners",
+            "2",
+            "orden"
+          ],
+          "query": [
+            {
+              "key": "orden",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners/4/estado",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/banners/4/estado?activo=false",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners",
+            "4",
+            "estado"
+          ],
+          "query": [
+            {
+              "key": "activo",
+              "value": "false"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/banners/4",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/banners/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "banners",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/inventario/movimientos",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/inventario/movimientos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "inventario",
+            "movimientos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/inventario/movimientos/compras",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"items\": [\r\n    { \"productoId\": 8, \"cantidad\": 100 }\r\n  ],\r\n  \"proveedor\": \"Distribuidora Salud\",\r\n  \"observaciones\": \"Factura F-2026-001\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/inventario/movimientos/compras",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "inventario",
+            "movimientos",
+            "compras"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/perfil",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/perfil",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "perfil"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/perfil",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIwMzE1LCJleHAiOjE3ODEzMDY3MTV9.lRVa9lVSVpvMLWIhi2w0MSYZ822jFMnr4ctlSPvaUS8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Nuevo Nombre\",\r\n  \"telefono\": \"3009876543\",\r\n  \"codigoArea\": \"+57\",\r\n  \"fechaNacimiento\": \"1985-05-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/perfil",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "perfil"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/perfil/avatar",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjIzNjEyLCJleHAiOjE3ODEzMTAwMTJ9.uTjPPztZJgVvv83N7Yv0wrysofwZDxKjZR8Mjoq07u0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "avatar",
+              "type": "file",
+              "uuid": "512fba60-20e6-4c11-b811-364ba28295d0",
+              "src": "/C:/Users/usuario/Downloads/shooky.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/perfil/avatar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "perfil",
+            "avatar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/usuarios/6/avatar",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/6/avatar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "6",
+            "avatar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/admin/usuarios",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjI1NTM4LCJleHAiOjE3ODEzMTE5Mzh9.QK2QZ62Fri_2ZAt4XuhAuVWRV4dSjfRQcTlF3IJ6asE",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"username\": \"empleado3\",\r\n  \"password\": \"123456\",\r\n  \"nombre\": \"Pedro\",\r\n  \"apellido\": \"chuche\",\r\n  \"email\": \"pedro3@farmacia.com\",\r\n  \"rol\": \"EMPLEADO\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/admin/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "admin",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8080/api/ventas/reportes/ventas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJyb2wiOiJBRE1JTiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzgxMjI1NTM4LCJleHAiOjE3ODEzMTE5Mzh9.QK2QZ62Fri_2ZAt4XuhAuVWRV4dSjfRQcTlF3IJ6asE",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/ventas/reportes/ventas?inicio=2026-01-01&fin=2026-06-30",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ventas",
+            "reportes",
+            "ventas"
+          ],
+          "query": [
+            {
+              "key": "inicio",
+              "value": "2026-01-01"
+            },
+            {
+              "key": "fin",
+              "value": "2026-06-30"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

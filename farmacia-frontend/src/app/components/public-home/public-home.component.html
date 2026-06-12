@@ -1,0 +1,72 @@
+<div class="public-home-wrapper">
+  <app-top-bar></app-top-bar>
+
+  <div class="search-section">
+    <div class="search-container">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" class="search-input" placeholder="Buscar medicamentos..." [(ngModel)]="terminoBusqueda" (input)="onSearchInput()" (keyup.enter)="buscar()" (blur)="closeSuggestions()" autocomplete="off">
+      <button class="search-btn" (click)="buscar()">Buscar</button>
+    </div>
+    <div class="suggestions-dropdown" *ngIf="showSuggestions && suggestions.length > 0">
+      <div *ngFor="let prod of suggestions" class="suggestion-item" (click)="selectSuggestion(prod)">{{ prod.nombre }}</div>
+    </div>
+  </div>
+
+  <div class="banner-carousel-manual">
+    <div class="carousel-container-manual">
+      <div class="carousel-slide" [style.transform]="'translateX(-' + currentBannerIndex * 100 + '%)'">
+        <img *ngFor="let banner of banners" [src]="getFullBannerUrl(banner)" class="carousel-image" alt="Banner">
+      </div>
+    </div>
+    <button class="carousel-control-manual prev" (click)="prevBanner()">❮</button>
+    <button class="carousel-control-manual next" (click)="nextBanner()">❯</button>
+    <div class="carousel-indicators-manual">
+      <span *ngFor="let banner of banners; let i = index" class="indicator" [class.active]="i === currentBannerIndex" (click)="goToBanner(i)"></span>
+    </div>
+  </div>
+
+  <div class="section productos-section">
+    <h2>Los más vendidos</h2>
+    <div class="carousel-container">
+      <button class="carousel-btn prev" (click)="scrollProductos(-1)">❮</button>
+      <div class="carousel-track" id="productosTrack">
+        <div *ngFor="let prod of productosDestacados" class="producto-card">
+          <img [src]="getImagenProducto(prod.id)" class="producto-img rounded-circle" alt="{{ prod.nombre }}" (click)="irALogin()">
+          <div class="producto-info">
+            <h5>{{ prod.nombre }}</h5>
+            <p class="precio">\${{ prod.precio }}</p>
+            <button class="btn-comprar" (click)="irALogin()">Comprar</button>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn next" (click)="scrollProductos(1)">❯</button>
+    </div>
+  </div>
+
+  <div class="section categorias-section">
+    <h2>Categorías</h2>
+    <div class="categorias-grid">
+      <div *ngFor="let cat of categorias" class="categoria-card" (click)="irALogin()">
+        <img [src]="getImagenCategoria(cat)" class="categoria-img rounded-circle" alt="{{ cat }}">
+        <span class="categoria-nombre">{{ cat }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section quienes-somos">
+    <div class="quienes-somos-card">
+      <h2>¿Quiénes somos?</h2>
+      <p>Farmacias Curarte es tu farmacia y droguería virtual 24 horas que te entrega a domicilio una gran variedad de productos (bebés, medicamentos, naturales, aseo, helados, belleza) para que compres sin salir de casa.</p>
+      <p class="lema">Cuidarte es nuestro arte.</p>
+    </div>
+  </div>
+
+  <div class="section servicios">
+    <div class="servicio-item">💉 Servicio de inyectología</div>
+    <div class="servicio-item">🇬🇧 We speak english / 🇧🇷 Falamos português</div>
+    <div class="servicio-item">🚚 Servicio a domicilio</div>
+    <div class="servicio-item">💳 Todos los medios de pago</div>
+  </div>
+
+  <app-bottom-bar></app-bottom-bar>
+</div>

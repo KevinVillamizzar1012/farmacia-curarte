@@ -1,0 +1,41 @@
+<div class="login-page">
+  <app-top-bar></app-top-bar>
+  
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo-container">
+        <img src="logo.png" alt="Farmacias Curarte" class="logo-img">
+      </div>
+      <h2 class="titulo-principal">Farmacias Curarte</h2>
+      <p class="subtitulo">Inicia sesión en tu cuenta</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="campo-usuario">
+          <label class="label-usuario">Usuario</label>
+          <div class="input-wrapper">
+            <span class="icono-usuario"><i class="bi bi-person"></i></span>
+            <input type="text" class="input-usuario" formControlName="username" placeholder="Ingresa tu usuario">
+          </div>
+        </div>
+
+        <div class="campo-contrasena">
+          <label class="label-contrasena">Contraseña</label>
+          <div class="input-wrapper">
+            <span class="icono-contrasena"><i class="bi bi-lock"></i></span>
+            <input type="password" class="input-contrasena" formControlName="password" placeholder="********">
+          </div>
+        </div>
+
+        <button type="submit" class="boton-login" [disabled]="loginForm.invalid">
+          Ingresar
+        </button>
+      </form>
+
+      <div class="enlace-registro">
+        <a routerLink="/registro" class="link-registro">¿No tienes cuenta? Regístrate</a>
+      </div>
+    </div>
+  </div>
+
+  <app-bottom-bar></app-bottom-bar>
+</div>

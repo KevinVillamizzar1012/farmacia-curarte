@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Numans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.reportes-wrapper {
+  min-height: 100vh;
+  background: #f5f5f5;
+  font-family: 'Numans', sans-serif;
+}
+
+.main-content-reportes {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.reportes-card {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.card-header {
+  background: #07666D;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Sección general */
+.reporte-section {
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1.5rem;
+}
+
+.reporte-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.reporte-section h4 {
+  color: #07666D;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Filtros de fecha */
+.filtros-fecha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.filtros-fecha .form-group {
+  flex: 1;
+  min-width: 180px;
+}
+
+.filtros-fecha label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #082c32;
+}
+
+.filtros-fecha .form-control {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid #ced4da;
+}
+
+.btn-consultar {
+  background-color: #0FB7CF;
+  border: none;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Botones de exportación generales (todos) */
+.btn-excel, .btn-pdf {
+  border: none;
+  padding: 0.7rem 2rem;          /* Más ancho horizontal */
+  min-width: 140px;              /* Ancho mínimo uniforme */
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: filter 0.2s;
+}
+
+.btn-excel {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-pdf {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-excel:hover, .btn-pdf:hover {
+  filter: brightness(0.9);
+}
+
+/* Botones de exportación para la sección de ventas (encima de tabla) */
+.botones-exportar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: flex-end;
+}
+
+/* Botones de exportación debajo de cada tabla de inventario */
+.export-buttons-under-table {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Tablas general */
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.tabla-reportes, .tabla-inventario {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-reportes th, .tabla-reportes td,
+.tabla-inventario th, .tabla-inventario td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-reportes th, .tabla-inventario th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  color: #082c32;
+}
+
+/* Tabla stock bajo (estilo diferente) */
+.stock-bajo-table th {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+.stock-bajo-table td.text-danger {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Tabla próximos a vencer */
+.vencimiento-table th {
+  background-color: #ffedd5;
+  color: #9b2c1d;
+}
+.vencimiento-table td.text-warning {
+  color: #b45309;
+  font-weight: 500;
+}
+
+/* Títulos de cada tabla */
+.tabla-stock-bajo h5, .tabla-proximos-vencer h5 {
+  margin: 1rem 0 0.8rem 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #082c32;
+}
+
+.tabla-stock-bajo h5 i {
+  color: #e67e22;
+}
+.tabla-proximos-vencer h5 i {
+  color: #d97706;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  .filtros-fecha {
+    flex-direction: column;
+  }
+  .botones-exportar {
+    justify-content: center;
+  }
+  .export-buttons-under-table {
+    justify-content: center;
+  }
+  /* En móviles, los botones pueden ser un poco más estrechos */
+  .btn-excel, .btn-pdf {
+    padding: 0.4rem 1.2rem;
+    min-width: auto;
+  }
+  .tabla-inventario th, .tabla-inventario td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
