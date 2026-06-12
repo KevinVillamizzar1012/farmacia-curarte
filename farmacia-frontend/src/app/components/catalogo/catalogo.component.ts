@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { Producto } from '../../models/producto.model';
 import { AuthService } from '../../services/auth.service';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ProductoImagenService, ProductoImagen } from '../../services/producto-imagen.service';
+import { ProductoImagenService } from '../../services/producto-imagen.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -21,7 +21,7 @@ import { ProductoImagenService, ProductoImagen } from '../../services/producto-i
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })
-export class CatalogoComponent implements OnInit, OnDestroy {
+export class CatalogoComponent implements OnInit {
   private fb = inject(FormBuilder);
   private productoService = inject(ProductoService);
   private productoImagenService = inject(ProductoImagenService);
@@ -40,10 +40,6 @@ export class CatalogoComponent implements OnInit, OnDestroy {
 
   paginaActual = 1;
   itemsPorPagina = 25;
-
-  imagenesSeleccionadas: File[] = [];
-  previewUrls: string[] = [];
-  imagenesExistentes: ProductoImagen[] = [];
 
   get productosFiltrados(): Producto[] {
     return this.productos;
@@ -91,10 +87,6 @@ export class CatalogoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.previewUrls.forEach(url => URL.revokeObjectURL(url));
-  }
-
   onSearchInput(): void {
     this.searchTerms.next(this.terminoBusqueda);
   }
@@ -136,49 +128,7 @@ export class CatalogoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files) {
-      this.imagenesSeleccionadas = Array.from(input.files);
-      this.previewUrls.forEach(url => URL.revokeObjectURL(url));
-      this.previewUrls = [];
-      for (let file of this.imagenesSeleccionadas) {
-        this.previewUrls.push(URL.createObjectURL(file));
-      }
-    }
-  }
-
-  eliminarImagenExistente(imagenId: number): void {
-    if (confirm('¿Eliminar esta imagen?')) {
-      this.productoImagenService.eliminarImagen(imagenId).subscribe(() => {
-        this.imagenesExistentes = this.imagenesExistentes.filter(img => img.id !== imagenId);
-        if (this.editingProducto) {
-          this.editingProducto.imagenes = this.imagenesExistentes;
-        }
-      });
-    }
-  }
-
-  private subirImagenesPendientes(productoId: number): void {
-    if (this.imagenesSeleccionadas.length > 0) {
-      this.productoImagenService.subirImagenes(productoId, this.imagenesSeleccionadas).subscribe({
-        next: (imgs) => {
-          console.log('Imágenes subidas:', imgs);
-          this.imagenesSeleccionadas = [];
-          this.previewUrls.forEach(url => URL.revokeObjectURL(url));
-          this.previewUrls = [];
-          this.buscar();
-        },
-        error: err => console.error('Error subiendo imágenes:', err)
-      });
-    }
-  }
-
   abrirModal(producto?: Producto): void {
-    this.imagenesSeleccionadas = [];
-    this.previewUrls = [];
-    this.imagenesExistentes = [];
-
     if (producto) {
       this.editingProducto = producto;
       this.productoForm.patchValue({
@@ -191,11 +141,6 @@ export class CatalogoComponent implements OnInit, OnDestroy {
         fechaVencimiento: producto.fechaVencimiento,
         descripcion: producto.descripcion || ''
       });
-      if (producto.id) {
-        this.productoImagenService.obtenerImagenes(producto.id).subscribe(imgs => {
-          this.imagenesExistentes = imgs;
-        });
-      }
     } else {
       this.editingProducto = null;
       this.productoForm.reset({
@@ -216,10 +161,6 @@ export class CatalogoComponent implements OnInit, OnDestroy {
     this.showModal = false;
     this.editingProducto = null;
     this.productoForm.reset();
-    this.imagenesSeleccionadas = [];
-    this.previewUrls.forEach(url => URL.revokeObjectURL(url));
-    this.previewUrls = [];
-    this.imagenesExistentes = [];
   }
 
   guardarProducto(): void {
@@ -237,15 +178,11 @@ export class CatalogoComponent implements OnInit, OnDestroy {
     };
     if (this.editingProducto) {
       this.productoService.actualizarProducto(this.editingProducto.id, productoData).subscribe(() => {
-        if (this.editingProducto) {
-          this.subirImagenesPendientes(this.editingProducto.id);
-        }
         this.buscar();
         this.cerrarModal();
       });
     } else {
-      this.productoService.crearProducto(productoData).subscribe((nuevoProducto) => {
-        this.subirImagenesPendientes(nuevoProducto.id);
+      this.productoService.crearProducto(productoData).subscribe(() => {
         this.buscar();
         this.cerrarModal();
       });
@@ -258,7 +195,12 @@ export class CatalogoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getFullImageUrl(imageUrl: string): string {
-    return this.productoImagenService.getFullImageUrl(imageUrl);
+  // Método auxiliar para obtener la URL completa de la imagen de un producto
+  getImagenProducto(productoId: number): string {
+    const prod = this.productos.find(p => p.id === productoId);
+    if (prod && prod.imagenes && prod.imagenes.length > 0) {
+      return `http://localhost:8080${prod.imagenes[0].url}`;
+    }
+    return 'no-image.png';
   }
 }
