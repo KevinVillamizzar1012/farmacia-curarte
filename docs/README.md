@@ -73,5 +73,5 @@ Antes de instalar, asegúrate de tener:
 
 1. Clona el repositorio y accede a la carpeta del backend:
    ```bash
-   git clone https://github.com/tuusuario/farmacia-curarte.git
+   git clone https://github.com/KevinVillamizzar1012/farmacia-curarte.git
    cd farmacia-curarte/backend

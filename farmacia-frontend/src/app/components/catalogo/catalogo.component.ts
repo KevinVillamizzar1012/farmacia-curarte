@@ -13,11 +13,7 @@ import { ProductoImagenService } from '../../services/producto-imagen.service';
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './catalogo.component.html',
   styleUrls: ['./catalogo.component.css']
 })
@@ -41,16 +37,15 @@ export class CatalogoComponent implements OnInit {
   paginaActual = 1;
   itemsPorPagina = 25;
 
-  get productosFiltrados(): Producto[] {
-    return this.productos;
-  }
-
-  get totalPaginas(): number {
-    return Math.ceil(this.productosFiltrados.length / this.itemsPorPagina);
-  }
+  get productosFiltrados(): Producto[] { return this.productos; }
+  get totalPaginas(): number { return Math.ceil(this.productosFiltrados.length / this.itemsPorPagina); }
 
   showModal = false;
   editingProducto: Producto | null = null;
+
+  selectedFiles: File[] = [];
+  previewUrls: string[] = [];
+  imagenesExistentes: any[] = [];
 
   filtrosForm = this.fb.group({
     nombre: [''],
@@ -87,20 +82,14 @@ export class CatalogoComponent implements OnInit {
     });
   }
 
-  onSearchInput(): void {
-    this.searchTerms.next(this.terminoBusqueda);
-  }
-
+  onSearchInput(): void { this.searchTerms.next(this.terminoBusqueda); }
   selectSuggestion(producto: Producto): void {
     this.terminoBusqueda = producto.nombre;
     this.showSuggestions = false;
     this.filtrosForm.patchValue({ nombre: producto.nombre });
     this.buscar();
   }
-
-  closeSuggestions(): void {
-    setTimeout(() => this.showSuggestions = false, 200);
-  }
+  closeSuggestions(): void { setTimeout(() => this.showSuggestions = false, 200); }
 
   buscar(): void {
     const filtros = this.filtrosForm.value;
@@ -114,21 +103,14 @@ export class CatalogoComponent implements OnInit {
     });
   }
 
-  limpiarFiltros(): void {
-    this.filtrosForm.reset({ nombre: '', categoria: '', disponible: null });
-    this.buscar();
-  }
-
-  toggleDropdown(): void {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
-
-  logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
-  }
+  limpiarFiltros(): void { this.filtrosForm.reset({ nombre: '', categoria: '', disponible: null }); this.buscar(); }
+  toggleDropdown(): void { this.dropdownOpen = !this.dropdownOpen; }
+  logout(): void { this.auth.logout(); this.router.navigate(['/login']); }
 
   abrirModal(producto?: Producto): void {
+    this.selectedFiles = [];
+    this.previewUrls = [];
+    this.imagenesExistentes = [];
     if (producto) {
       this.editingProducto = producto;
       this.productoForm.patchValue({
@@ -141,17 +123,13 @@ export class CatalogoComponent implements OnInit {
         fechaVencimiento: producto.fechaVencimiento,
         descripcion: producto.descripcion || ''
       });
+      if (producto.imagenes && producto.imagenes.length > 0) {
+        this.imagenesExistentes = producto.imagenes.map(img => ({ id: img.id, url: img.url }));
+      }
     } else {
       this.editingProducto = null;
       this.productoForm.reset({
-        nombre: '',
-        codigoBarras: '',
-        categoria: '',
-        precio: 0,
-        stock: 0,
-        stockMinimo: 0,
-        fechaVencimiento: '',
-        descripcion: ''
+        nombre: '', codigoBarras: '', categoria: '', precio: 0, stock: 0, stockMinimo: 0, fechaVencimiento: '', descripcion: ''
       });
     }
     this.showModal = true;
@@ -161,6 +139,40 @@ export class CatalogoComponent implements OnInit {
     this.showModal = false;
     this.editingProducto = null;
     this.productoForm.reset();
+    this.selectedFiles = [];
+    this.previewUrls = [];
+    this.imagenesExistentes = [];
+  }
+
+  getFullImageUrl(url: string): string {
+    if (!url) return 'no-image.png';
+    if (url.startsWith('http')) return url;
+    return `http://localhost:8080${url}`;
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedFiles = Array.from(input.files);
+      this.previewUrls = [];
+      for (let file of this.selectedFiles) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => this.previewUrls.push(e.target.result);
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
+  eliminarImagenExistente(idImagen: number): void {
+    if (confirm('¿Eliminar esta imagen permanentemente?')) {
+      this.productoImagenService.eliminarImagen(idImagen).subscribe({
+        next: () => {
+          this.imagenesExistentes = this.imagenesExistentes.filter(img => img.id !== idImagen);
+          this.buscar();
+        },
+        error: (err) => { console.error(err); alert('No se pudo eliminar la imagen'); }
+      });
+    }
   }
 
   guardarProducto(): void {
@@ -176,17 +188,32 @@ export class CatalogoComponent implements OnInit {
       fechaVencimiento: raw.fechaVencimiento || undefined,
       descripcion: raw.descripcion || undefined
     };
-    if (this.editingProducto) {
-      this.productoService.actualizarProducto(this.editingProducto.id, productoData).subscribe(() => {
-        this.buscar();
-        this.cerrarModal();
-      });
-    } else {
-      this.productoService.crearProducto(productoData).subscribe(() => {
-        this.buscar();
-        this.cerrarModal();
-      });
-    }
+
+    const saveObservable = this.editingProducto
+      ? this.productoService.actualizarProducto(this.editingProducto.id, productoData)
+      : this.productoService.crearProducto(productoData);
+
+    saveObservable.subscribe({
+      next: (productoGuardado) => {
+        const productoId = this.editingProducto ? this.editingProducto.id : productoGuardado.id;
+        if (this.selectedFiles.length > 0) {
+          // ✅ CORRECCIÓN: pasar el array de archivos directamente
+          this.productoImagenService.subirImagenes(productoId, this.selectedFiles).subscribe({
+            next: () => { this.buscar(); this.cerrarModal(); },
+            error: (err) => {
+              console.error(err);
+              alert('Producto guardado pero error al subir imágenes');
+              this.buscar();
+              this.cerrarModal();
+            }
+          });
+        } else {
+          this.buscar();
+          this.cerrarModal();
+        }
+      },
+      error: (err) => { console.error(err); alert('Error al guardar producto'); }
+    });
   }
 
   eliminarProducto(id: number): void {
@@ -195,11 +222,10 @@ export class CatalogoComponent implements OnInit {
     }
   }
 
-  // Método auxiliar para obtener la URL completa de la imagen de un producto
   getImagenProducto(productoId: number): string {
     const prod = this.productos.find(p => p.id === productoId);
     if (prod && prod.imagenes && prod.imagenes.length > 0) {
-      return `http://localhost:8080${prod.imagenes[0].url}`;
+      return this.getFullImageUrl(prod.imagenes[0].url);
     }
     return 'no-image.png';
   }

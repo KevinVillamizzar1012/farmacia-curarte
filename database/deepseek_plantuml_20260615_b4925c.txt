@@ -1,0 +1,59 @@
+@startuml
+title Diagrama de Flujo - Lógica del Sitio Web para Organización
+
+start
+:Usuario ingresa URL (ej. https://www.organizacion.com);
+
+:Resolución DNS:
+- Cliente consulta servidor DNS recursivo
+- DNS retorna dirección IP del servidor;
+
+:Establecimiento de conexión;
+if (¿Protocolo HTTPS?) then (Sí)
+  :Handshake TLS (cifrado asimétrico + simétrico);
+  :Puerto 443;
+else (No - HTTP)
+  :Conexión en texto plano;
+  :Puerto 80;
+endif
+
+:Cliente envía petición HTTP (GET, POST, etc.);
+
+:Servidor web (Apache/Nginx) recibe petición;
+
+:Evaluación de seguridad a nivel servidor:
+- Verificación de certificado SSL (si HTTPS)
+- Filtro WAF / firewall;
+
+:¿Requiere consulta a base de datos?;
+if (Sí) then
+  :Servidor consulta BD (MySQL, PostgreSQL);
+  :BD retorna datos (usuarios, productos, etc.);
+else (No)
+  :Servidor sirve archivo estático (HTML, CSS, JS);
+endif
+
+:Servidor genera respuesta (código 200, datos o error);
+
+:Transferencia de datos:
+- Compresión Gzip/Brotli (eficiencia)
+- Caché (cabeceras Cache-Control);
+
+if (¿HTTPS activo?) then (Sí)
+  :Datos viajan cifrados;
+else (No)
+  :Datos viajan en texto plano (riesgo);
+endif
+
+:Navegador cliente recibe respuesta;
+:Renderizado e interpretación de HTML/CSS/JS;
+
+:Evaluación de eficiencia post-carga:
+- Tiempo total de carga
+- Número de peticiones
+- Uso de caché local;
+
+:Usuario interactúa con el sitio (navegación, formularios);
+
+stop
+@enduml
